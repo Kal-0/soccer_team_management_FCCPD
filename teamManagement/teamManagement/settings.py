@@ -75,10 +75,16 @@ WSGI_APPLICATION = 'teamManagement.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'nome_do_banco_de_dados', # NOME DO BD POURRAN
+        'USER': 'root',  # ou outro usuário criado
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',  # ou 'localhost'
+        'PORT': '3306',
     }
 }
+
+
 
 
 # Password validation

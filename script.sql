@@ -1,4 +1,4 @@
-create database championship_management;
+create database if not exists team_management;
 
 use championship_management;
 

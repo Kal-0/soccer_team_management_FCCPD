@@ -91,6 +91,16 @@ DATABASES = {
 #         'PORT': '3306',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'team_management',
+        'USER': 'root',
+        'PASSWORD': 'example',
+        'HOST': 'db',
+        'PORT': '3306',
+    }
+}
 
 
 

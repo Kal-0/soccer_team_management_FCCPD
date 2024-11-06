@@ -10,12 +10,22 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+      - ./script.sql:/docker-entrypoint-initdb.d/init_db.sql # Adiciona o script SQL aqui
+
 
   web:
     build: .
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: >
+      sh -c "
+        until mysqladmin ping -h db --silent; do
+          echo 'Waiting for database...';
+          sleep 2;
+        done;
+        python ./teamManagement/manage.py migrate &&
+        python ./teamManagement/manage.py runserver 0.0.0.0:8000
+      "
     volumes:
-      - .:/app
+      - .:/container
     ports:
       - "8000:8000"
     depends_on:

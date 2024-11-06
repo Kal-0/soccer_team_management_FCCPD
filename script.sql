@@ -1,6 +1,6 @@
 create database if not exists team_management;
 
-use championship_management;
+use team_management;
 
 create table campeonato(
 nome varchar(100),

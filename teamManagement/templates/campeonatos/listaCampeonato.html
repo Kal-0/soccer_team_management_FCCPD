@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Campeonatos</title>
+</head>
+
+<body>
+    <h2>Lista de Campeonatos</h2>
+    <a href="{% url 'campeonato_create' %}">Adicionar Novo Campeonato</a>
+    <ul>
+        {% for campeonato in campeonatos %}
+        <li>
+            {{ campeonato.nome }} - {{ campeonato.modelo }}
+            <a href="{% url 'campeonato_update' campeonato.id %}">Editar</a>
+            <a href="{% url 'campeonato_delete' campeonato.id %}">Deletar</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>

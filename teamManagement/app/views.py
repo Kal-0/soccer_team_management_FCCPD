@@ -1,13 +1,44 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from rest_framework import viewsets  # type: ignore
-from .forms import JogadorForm
+from .forms import JogadorForm, CampeonatoForm
 from .models import Campeonato, Jogador
-from .serializers import CampeonatoSerializer
+
+# ==========================CAMPEONATO=======================================
 
 
-class CampeonatoViewSet(viewsets.ModelViewSet):
-    queryset = Campeonato.objects.all()
-    serializer_class = CampeonatoSerializer
+def campeonato_list(request):
+    campeonatos = Campeonato.objects.all()
+    return render(request, 'campeonatos/listaCampeonato.html', {'campeonatos': campeonatos})
+
+
+def campeonato_create(request):
+    if request.method == 'POST':
+        form = CampeonatoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('campeonatos/campeonato_list')
+    else:
+        form = CampeonatoForm()
+    return render(request, 'campeonatos/formCampeonato.html', {'form': form})
+
+
+def campeonato_update(request, id):
+    campeonato = get_object_or_404(Campeonato, id=id)
+    if request.method == 'POST':
+        form = CampeonatoForm(request.POST, instance=campeonato)
+        if form.is_valid():
+            form.save()
+            return redirect('campeonatos/campeonato_list')
+    else:
+        form = CampeonatoForm(instance=campeonato)
+    return render(request, 'campeonatos/formCampeonato.html', {'form': form})
+
+
+def campeonato_delete(request, id):
+    campeonato = get_object_or_404(Campeonato, id=id)
+    if request.method == 'POST':
+        campeonato.delete()
+        return redirect('campeonatos/campeonato_list')
+    return render(request, 'campeonatos/deleteCampeonato.html', {'campeonato': campeonato})
 
 # ==========================JOGADOR=======================================
 

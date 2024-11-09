@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Deletar Campeonato</title>
+</head>
+
+<body>
+    <h2>Tem certeza de que deseja deletar o campeonato "{{ campeonato.nome }}"?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Deletar</button>
+        <a href="{% url 'campeonato_list' %}">Cancelar</a>
+    </form>
+</body>
+
+</html>

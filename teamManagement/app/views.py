@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import JogadorForm, CampeonatoForm
-from .models import Campeonato, Jogador
+from .forms import CampeonatoForm, ClubeForm, JogadorForm
+from .models import Campeonato, Clube, Jogador
 
 # ==========================CAMPEONATO=======================================
 
@@ -39,6 +39,44 @@ def campeonato_delete(request, id):
         campeonato.delete()
         return redirect('campeonatos/campeonato_list')
     return render(request, 'campeonatos/deleteCampeonato.html', {'campeonato': campeonato})
+
+# ==========================CUBE=======================================
+
+
+def clube_list(request):
+    clubes = Clube.objects.all()
+    return render(request, 'clubes/listaClube.html', {'clubes': clubes})
+
+
+def clube_create(request):
+    if request.method == 'POST':
+        form = ClubeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('clube_list')
+    else:
+        form = ClubeForm()
+    return render(request, 'clubes/formClube.html', {'form': form})
+
+
+def clube_update(request, id):
+    clube = get_object_or_404(Clube, id=id)
+    if request.method == 'POST':
+        form = ClubeForm(request.POST, instance=clube)
+        if form.is_valid():
+            form.save()
+            return redirect('clubes/clube_list')
+    else:
+        form = ClubeForm(instance=clube)
+    return render(request, 'clubes/formClube.html', {'form': form})
+
+
+def clube_delete(request, id):
+    clube = get_object_or_404(Clube, id=id)
+    if request.method == 'POST':
+        clube.delete()
+        return redirect('clubes/clube_list')
+    return render(request, 'clubes/deleteClube.html', {'clube': clube})
 
 # ==========================JOGADOR=======================================
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% if form.instance.pk %}Editar Clube{% else %}Adicionar Novo Clube{% endif %}</title>
+</head>
+
+<body>
+    <h2>{% if form.instance.pk %}Editar Clube{% else %}Adicionar Novo Clube{% endif %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            {{ form.nome }}
+        </div>
+        <div class="form-group">
+            <label for="dt_fundacao">Data de Fundação</label>
+            <input type="date" name="dt_fundacao" id="dt_fundacao" value="{{ form.dt_fundacao.value|date:'Y-m-d' }}">
+        </div>
+        <div class="form-group">
+            <label for="titulos">Títulos</label>
+            {{ form.titulos }}
+        </div>
+        <button type="submit">Salvar</button>
+        <a href="{% url 'clube_list' %}">Cancelar</a>
+    </form>
+</body>
+
+</html>

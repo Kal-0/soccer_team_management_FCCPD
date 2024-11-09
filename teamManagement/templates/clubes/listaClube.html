@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Clubes</title>
+</head>
+
+<body>
+    <h2>Lista de Clubes</h2>
+    <a href="{% url 'clube_create' %}">Adicionar Novo Clube</a>
+    <ul>
+        {% for clube in clubes %}
+        <li>
+            {{ clube.nome }} - {{ clube.dt_fundacao }} - {{ clube.titulos }}
+            <a href="{% url 'clube_update' clube.id %}">Editar</a>
+            <a href="{% url 'clube_delete' clube.id %}">Deletar</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>

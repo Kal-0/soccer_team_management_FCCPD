@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Deletar Clube</title>
+</head>
+
+<body>
+    <h2>Tem certeza de que deseja deletar o clube "{{ clube.nome }}"?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Deletar</button>
+        <a href="{% url 'clube_list' %}">Cancelar</a>
+    </form>
+</body>
+
+</html>

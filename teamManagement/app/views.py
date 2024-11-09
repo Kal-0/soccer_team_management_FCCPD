@@ -52,8 +52,10 @@ def clube_create(request):
     if request.method == 'POST':
         form = ClubeForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('clube_list')
+            clube = form.save()
+            campeonatos = form.cleaned_data['campeonatos']
+            clube.campeonato_set.set(campeonatos)
+            return redirect('clubes/clube_list')
     else:
         form = ClubeForm()
     return render(request, 'clubes/formClube.html', {'form': form})
@@ -90,8 +92,11 @@ def jogador_create(request):
     if request.method == 'POST':
         form = JogadorForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('jogadores/listaJogador')
+            jogador = form.save(commit=False)
+            jogador.save()
+            clube = form.cleaned_data['clube']
+            clube.jogador_set.add(jogador)
+            return redirect('jogadores/jogador_list')
     else:
         form = JogadorForm()
     return render(request, 'jogadores/formJogador.html', {'form': form})

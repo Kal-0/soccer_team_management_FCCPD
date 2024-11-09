@@ -22,6 +22,10 @@
             <label for="titulos">Títulos</label>
             {{ form.titulos }}
         </div>
+        <div class="form-group">
+            <label for="clube">Campeonatos</label>
+            {{ form.campeonatos }}
+        </div>
         <button type="submit">Salvar</button>
         <a href="{% url 'clube_list' %}">Cancelar</a>
     </form>

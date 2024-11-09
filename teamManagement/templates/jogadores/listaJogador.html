@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Jogadores</title>
+</head>
+
+<body>
+    <h2>Lista de Jogadores</h2>
+    <a href="{% url 'jogador_create' %}">Adicionar Novo Jogador</a>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Posição</th>
+            <th>Número</th>
+            <th>Contrato</th>
+            <th>Titular</th>
+            <th>Data de Nascimento</th>
+            <th>Salário</th>
+            <th>Ações</th>
+        </tr>
+        {% for jogador in jogadores %}
+        <tr>
+            <td>{{ jogador.nome }}</td>
+            <td>{{ jogador.cpf }}</td>
+            <td>{{ jogador.posicao }}</td>
+            <td>{{ jogador.numero }}</td>
+            <td>{{ jogador.tempo_contrato }}</td>
+            <td>{{ jogador.titular }}</td>
+            <td>{{ jogador.dt_nascimento }}</td>
+            <td>{{ jogador.salario }}</td>
+            <td>
+                <a href="{% url 'jogador_update' jogador.cpf %}">Editar</a> |
+                <a href="{% url 'jogador_delete' jogador.cpf %}">Deletar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

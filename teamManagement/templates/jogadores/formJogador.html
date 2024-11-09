@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% if form.instance.pk %}Editar Jogador{% else %}Adicionar Novo Jogador{% endif %}</title>
+</head>
+
+<body>
+    <div>
+        <h2>{% if form.instance.pk %}Editar Jogador{% else %}Adicionar Novo Jogador{% endif %}</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                {{ form.nome }}
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF</label>
+                {{ form.cpf }}
+            </div>
+            <div class="form-group">
+                <label for="posicao">Posição</label>
+                {{ form.posicao }}
+            </div>
+            <div class="form-group">
+                <label for="numero">Número</label>
+                {{ form.numero }}
+            </div>
+            <div class="form-group">
+                <label for="tempo_contrato">Tempo de Contrato</label>
+                {{ form.tempo_contrato }}
+            </div>
+            <div class="form-group form-check">
+                {{ form.titular }}
+                <label class="form-check-label" for="titular">Titular</label>
+            </div>
+            <div class="form-group">
+                <label for="dt_nascimento">Data de Nascimento</label>
+                <input type="date" name="dt_nascimento" id="dt_nascimento" class="form-control" value="{{ form.dt_nascimento.value|date:'Y-m-d' }}">
+            </div>
+            <div class="form-group">
+                <label for="salario">Salário</label>
+                {{ form.salario }}
+            </div>
+            <button type="submit">Salvar</button>
+            <a href="{% url 'jogador_list' %}">Cancelar</a>
+        </form>
+    </div>
+</body>
+
+</html>

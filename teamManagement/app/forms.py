@@ -1,5 +1,5 @@
 from django import forms
-from .models import Jogador, Campeonato, Clube
+from .models import Jogador, Campeonato, Clube, Treinador
 
 class CampeonatoForm(forms.ModelForm):
     class Meta:
@@ -23,3 +23,9 @@ class JogadorForm(forms.ModelForm):
         model = Jogador
         fields = ['nome', 'cpf', 'posicao', 'numero', 'tempo_contrato',
                   'titular', 'dt_nascimento', 'salario', 'clube']
+
+class TreinadorForm(forms.ModelForm):
+    class Meta:
+        model = Treinador
+        fields = ['cpf', 'nome', 'categoria', 'tempo_contrato', 'cargo',
+                   'dt_nascimento', 'salario', 'clube']

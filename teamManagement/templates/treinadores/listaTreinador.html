@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Treinadores</title>
+</head>
+
+<body>
+    <h2>Lista de Treinadores</h2>
+    <a href="{% url 'treinador_create' %}">Adicionar Novo Treinador</a>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Categoria</th>
+            <th>Tempo de Contrato</th>
+            <th>Cargo</th>
+            <th>Data de Nascimento</th>
+            <th>Salário</th>
+            <th>Clube</th>
+            <th>Ações</th>
+        </tr>
+        {% for treinador in treinadores %}
+        <tr>
+            <td>{{ treinador.nome }}</td>
+            <td>{{ treinador.cpf }}</td>
+            <td>{{ treinador.categoria }}</td>
+            <td>{{ treinador.tempo_contrato }}</td>
+            <td>{{ treinador.cargo }}</td>
+            <td>{{ treinador.dt_nascimento }}</td>
+            <td>{{ treinador.salario }}</td>
+            <td>{{ treinador.clube.nome }}</td>
+            <td>
+                <a href="{% url 'treinador_update' treinador.id %}">Editar</a> |
+                <a href="{% url 'treinador_delete' treinador.id %}">Deletar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

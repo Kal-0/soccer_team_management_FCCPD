@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CampeonatoForm, ClubeForm, JogadorForm
-from .models import Campeonato, Clube, Jogador
+from .forms import CampeonatoForm, ClubeForm, JogadorForm, TreinadorForm
+from .models import Campeonato, Clube, Jogador, Treinador
 
 # ========================== CAMPEONATO =======================================
 
@@ -119,3 +119,37 @@ def jogador_delete(request, cpf):
         jogador.delete()
         return redirect('jogadores/jogador_list')
     return render(request, 'jogadores/deleteJogador.html', {'jogador': jogador})
+
+
+# ========================== JOGADOR =======================================
+def treinador_list(request):
+    treinadores = Treinador.objects.all()
+    return render(request, 'treinadores/listaTreinador.html', {'treinadores': treinadores})
+
+def treinador_create(request):
+    if request.method == 'POST':
+        form = TreinadorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('treinador_list')
+    else:
+        form = TreinadorForm()
+    return render(request, 'treinadores/formTreinador.html', {'form': form})
+
+def treinador_update(request, cpf):
+    treinador = get_object_or_404(Treinador, cpf=cpf)
+    if request.method == 'POST':
+       form = TreinadorForm(request.POST, instance=treinador)
+       if form.is_valid():
+           form.save()
+           return redirect('treinador_list')
+    else:
+        form = TreinadorForm(instance=treinador)
+    return render(request, 'treinadores/formTreinador.html', {'form': form})
+
+def treinador_delete(request, cpf):
+    treinador = get_object_or_404(Treinador, cpf=cpf)
+    if request.method == 'POST':
+        treinador.delete()
+        return redirect('treinador_list')
+    return render(request, 'treinadores/deleteTreinador.html', {'treinador': treinador})

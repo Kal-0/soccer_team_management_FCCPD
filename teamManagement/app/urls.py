@@ -2,6 +2,7 @@ from django.urls import path
 from .views import campeonato_list, campeonato_create, campeonato_update, campeonato_delete
 from .views import clube_list, clube_create, clube_update, clube_delete
 from .views import jogador_list, jogador_create, jogador_update, jogador_delete
+from .views import treinador_list, treinador_create, treinador_update, treinador_delete
 
 urlpatterns = [
     path('campeonatos/', campeonato_list, name='campeonato_list'),
@@ -18,4 +19,8 @@ urlpatterns = [
     path('jogadores/novo/', jogador_create, name='jogador_create'),
     path('jogadores/<str:cpf>/editar/', jogador_update, name='jogador_update'),
     path('jogadores/<str:cpf>/deletar/', jogador_delete, name='jogador_delete'),
+    path('treinadores/', treinador_list, name='treinador_list'),
+    path('treinadores/novo/', treinador_create, name='treinador_create'),
+    path('treinadores/editar/<str:cpf>/', treinador_update, name = 'treinador_update'),
+    path('treinadores/editar/<str:cpf>/', treinador_delete, name = 'treinador_delete'),
 ]

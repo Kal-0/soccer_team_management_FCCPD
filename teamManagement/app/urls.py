@@ -4,7 +4,12 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('menu/campeonatos/', views.campeonato_menu, name='campeonato_menu'),
-    
+    path('menu/clubes/', views.clube_menu, name='clube_menu'),
+    path('menu/jogadores/', views.jogador_menu, name='jogador_menu'),
+    path('menu/treinadores/', views.treinador_menu, name='treinador_menu'),
+    path('menu/medicos/', views.medico_menu, name='medico_menu'),
+    path('menu/consultas/', views.consulta_menu, name='consulta_menu'),
+        
     # URLs para campeonatos
     path('campeonatos/', views.campeonato_list, name='campeonato_list'),
     path('campeonatos/novo/', views.campeonato_create, name='campeonato_create'),
@@ -36,7 +41,7 @@ urlpatterns = [
     path('medicos/deletar/<int:id>/', views.medico_delete, name='medico_delete'),
     
     #URLs consultas
-    path('consultas/', views.consulta_list, name='consulta_list'),
+
     path('jogadores_clubes_campeonatos/', views.jogadores_clubes_campeonatos, name='jogadores_clubes_campeonatos'),
     path('treinadores_medicos_por_clube/', views.treinadores_medicos_por_clube, name='treinadores_medicos_por_clube'),
     path('clubes_campeonatos_datas/', views.clubes_campeonatos_datas, name='clubes_campeonatos_datas'),

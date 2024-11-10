@@ -211,7 +211,7 @@ def medico_delete(request, id):
 
 # ========================== CONSULTAS ======================================
 
-def consulta_list(request):
+def consulta_menu(request):
     return render(request, 'consultas/consultaMenu.html')
 
 def jogadores_clubes_campeonatos(request):

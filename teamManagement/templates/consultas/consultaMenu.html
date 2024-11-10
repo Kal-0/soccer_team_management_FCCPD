@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Championship Management{% endblock %}
+
+{% block content %}
+<div class="menu">
+    <h1 class="title">
+        Consultas
+    </h1>
+    <p class="subtitle">
+        Selecione uma das opções abaixo!
+    </p>
+    <div class="button-container">
+        <a href="{% url 'jogadores_clubes_campeonatos' %}" class="button-anchor">
+            <button class="button-menu">Jogadores, Clubes e Campeonatos</button>
+        </a>
+    <div class="button-container">
+        <a href="{% url 'treinadores_medicos_por_clube' %}" class="button-anchor">
+            <button class="button-menu">Treinadores, Medicos por Clubes</button>
+        </a>
+        <a href="{% url 'clubes_campeonatos_datas' %}" class="button-anchor">
+            <button class="button-menu">Clubes, Campeonatos e Datas</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Treinadores e Médicos por Clube</title>
+</head>
+<body>
+    <h1>Treinadores e Médicos por Clube</h1>
+    {% for clube in clubes %}
+    <h2>{{ clube.nome }}</h2>
+    <h3>Treinadores:</h3>
+    <ul>
+        {% for treinador in clube.treinadores.all %}
+        <li>{{ treinador.nome }} - {{ treinador.cargo }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Médicos:</h3>
+    <ul>
+        {% for medico in clube.medicos.all %}
+        <li>{{ medico.nome }} - {{ medico.especializacao }}</li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+</body>
+</html>

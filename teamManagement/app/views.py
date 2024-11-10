@@ -195,3 +195,21 @@ def medico_delete(request, id):
         medico.delete()
         return redirect('medico_list')
     return render(request, 'medicos/deleteMedico.html', {'medico': medico})
+
+
+# ========================== CONSULTAS ======================================
+
+def consulta_list(request):
+    return render(request, 'consultas/consultaMenu.html')
+
+def jogadores_clubes_campeonatos(request):
+    jogadores = Jogador.objects.select_related('clube').prefetch_related('clube__campeonatos')
+    return render(request, 'consultas/jogadores_clubes_campeonatos.html', {'jogadores': jogadores})
+
+def treinadores_medicos_por_clube(request):
+    clubes = Clube.objects.prefetch_related('treinadores', 'medicos')
+    return render(request, 'consultas/treinadores_medicos_por_clube.html', {'clubes': clubes})
+
+def clubes_campeonatos_datas(request):
+    clubes = Clube.objects.prefetch_related('campeonatos')
+    return render(request, 'consultas/clubes_campeonatos_datas.html', {'clubes': clubes})

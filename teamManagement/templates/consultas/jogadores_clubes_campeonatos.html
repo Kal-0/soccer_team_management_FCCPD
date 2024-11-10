@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jogadores, Clubes e Campeonatos</title>
+</head>
+<body>
+    <h1>Jogadores, Clubes e Campeonatos</h1>
+    <table>
+        <tr>
+            <th>Jogador</th>
+            <th>Clube</th>
+            <th>Campeonatos</th>
+        </tr>
+        {% for jogador in jogadores %}
+        <tr>
+            <td>{{ jogador.nome }}</td>
+            <td>{{ jogador.clube.nome }}</td>
+            <td>
+                <ul>
+                    {% for campeonato in jogador.clube.campeonatos.all %}
+                    <li>{{ campeonato.nome }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -94,8 +94,8 @@ def jogador_create(request):
             jogador = form.save(commit=False)  # Salva sem comitar para ajustes adicionais
             jogador.save()  # Salva o jogador
             clube = form.cleaned_data['clube']
-            clube.jogador_set.add(jogador)  # Associa o jogador ao clube
-            return redirect('jogadores/jogador_list')
+            clube.jogadores.add(jogador)  # Associa o jogador ao clube
+            return redirect('jogador_list')
     else:
         form = JogadorForm()
     return render(request, 'jogadores/formJogador.html', {'form': form})

@@ -107,29 +107,5 @@ class CampeonatoClube(models.Model):
     class Meta:
         db_table = 'campeonato_clube'
 
-
-class ClubeJogador(models.Model):
-    id = models.AutoField(primary_key=True)
-    clube = models.ForeignKey(Clube, on_delete=models.CASCADE)
-    jogador = models.ForeignKey(Jogador, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'clube_jogador'
-
-
-class ClubeTreinador(models.Model):
-    id = models.AutoField(primary_key=True)
-    clube = models.ForeignKey(Clube, on_delete=models.CASCADE)
-    treinador = models.ForeignKey(Treinador, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'clube_treinador'
-
-
-class ClubeMedico(models.Model):
-    id = models.AutoField(primary_key=True)
-    clube = models.ForeignKey(Clube, on_delete=models.CASCADE)
-    medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'clube_medico'
+    def __str__(self):
+        return f"{self.clube} - {self.campeonato}"

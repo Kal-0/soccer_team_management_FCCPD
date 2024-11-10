@@ -27,7 +27,9 @@ CREATE TABLE jogadores (
     tempo_contrato VARCHAR(100),
     titular BOOLEAN,
     dt_nascimento DATE,
-    salario DOUBLE
+    salario DOUBLE,
+    clube_id INTEGER,
+    FOREIGN KEY (clube_id) REFERENCES clubes(id)
 );
 
 CREATE TABLE treinadores (
@@ -38,7 +40,9 @@ CREATE TABLE treinadores (
     tempo_contrato VARCHAR(100),
     cargo VARCHAR(30),
     dt_nascimento DATE,
-    salario DOUBLE
+    salario DOUBLE,
+    clube_id INTEGER,
+    FOREIGN KEY (clube_id) REFERENCES clubes(id)
 );
 
 CREATE TABLE medicos (
@@ -47,7 +51,9 @@ CREATE TABLE medicos (
     nome VARCHAR(255),
     especializacao VARCHAR(50),
     dt_nascimento DATE,
-    salario DOUBLE
+    salario DOUBLE,
+    clube_id INTEGER,
+    FOREIGN KEY (clube_id) REFERENCES clubes(id)
 );
 
 CREATE TABLE campeonato_clube (
@@ -58,26 +64,4 @@ CREATE TABLE campeonato_clube (
     FOREIGN KEY (clube_id) REFERENCES clubes(id)
 );
 
-CREATE TABLE clube_jogador (
-    id INTEGER AUTO_INCREMENT PRIMARY KEY,  -- Agora tem id como chave primária
-    clube_id INTEGER,
-    jogador_id INTEGER,
-    FOREIGN KEY (clube_id) REFERENCES clubes(id),
-    FOREIGN KEY (jogador_id) REFERENCES jogadores(id)
-);
 
-CREATE TABLE clube_treinador (
-    id INTEGER AUTO_INCREMENT PRIMARY KEY,  -- Agora tem id como chave primária
-    clube_id INTEGER,
-    treinador_id INTEGER,
-    FOREIGN KEY (clube_id) REFERENCES clubes(id),
-    FOREIGN KEY (treinador_id) REFERENCES treinadores(id)
-);
-
-CREATE TABLE clube_medico (
-    id INTEGER AUTO_INCREMENT PRIMARY KEY,  -- Agora tem id como chave primária
-    clube_id INTEGER,
-    medico_id INTEGER,
-    FOREIGN KEY (clube_id) REFERENCES clubes(id),
-    FOREIGN KEY (medico_id) REFERENCES medicos(id)
-);

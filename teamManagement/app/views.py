@@ -34,7 +34,7 @@ def campeonato_create(request):
         form = CampeonatoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('campeonatos/campeonato_list')
+            return redirect('campeonato_list')
     else:
         form = CampeonatoForm()
     return render(request, 'campeonatos/formCampeonato.html', {'form': form})
@@ -46,7 +46,7 @@ def campeonato_update(request, id):
         form = CampeonatoForm(request.POST, instance=campeonato)
         if form.is_valid():
             form.save()
-            return redirect('campeonatos/campeonato_list')
+            return redirect('campeonato_list')
     else:
         form = CampeonatoForm(instance=campeonato)
     return render(request, 'campeonatos/formCampeonato.html', {'form': form})
@@ -56,7 +56,7 @@ def campeonato_delete(request, id):
     campeonato = get_object_or_404(Campeonato, id=id)
     if request.method == 'POST':
         campeonato.delete()
-        return redirect('campeonatos/campeonato_list')
+        return redirect('campeonato_list')
     return render(request, 'campeonatos/deleteCampeonato.html', {'campeonato': campeonato})
 
 # ========================== CLUBE =======================================
@@ -127,7 +127,7 @@ def jogador_update(request, cpf):
         form = JogadorForm(request.POST, instance=jogador)
         if form.is_valid():
             form.save()
-            return redirect('jogadores/jogador_list')
+            return redirect('jogador_list')
     else:
         form = JogadorForm(instance=jogador)
     return render(request, 'jogadores/formJogador.html', {'form': form})
@@ -137,7 +137,7 @@ def jogador_delete(request, cpf):
     jogador = get_object_or_404(Jogador, cpf=cpf)
     if request.method == 'POST':
         jogador.delete()
-        return redirect('jogadores/jogador_list')
+        return redirect('jogador_list')
     return render(request, 'jogadores/deleteJogador.html', {'jogador': jogador})
 
 

@@ -2,6 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CampeonatoForm, ClubeForm, JogadorForm, TreinadorForm, MedicoForm
 from .models import Campeonato, Clube, Jogador, Treinador, Medico
 
+# ========================== UTILS =======================================
+
+def home(request):
+    return render(request, 'index.html')
+
+def campeonato_menu(request):
+    return render(request, 'campeonatos/campeonatoMenu.html')
+
 # ========================== CAMPEONATO =======================================
 
 def campeonato_list(request):

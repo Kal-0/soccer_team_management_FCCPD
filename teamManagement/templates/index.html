@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Championship Management{% endblock %}
+
+{% block content %}
+<div class="menu">
+    <h1 class="title">
+        Championship Management
+    </h1>
+    <p class="subtitle">
+        Selecione uma das opções abaixo!
+    </p>
+    <div class="button-container">
+        <a href="{% url 'campeonato_menu' %}" class="button-anchor">
+            <button class="button-menu">Campeonatos</button>
+        </a>
+        <a href="{% url 'clube_list' %}" class="button-anchor">
+            <button class="button-menu">Clubes</button>
+        </a>
+        <a href="{% url 'jogador_list' %}" class="button-anchor">
+            <button class="button-menu">Jogadores</button>
+        </a>
+        <a href="{% url 'treinador_list' %}" class="button-anchor">
+            <button class="button-menu">Treinadores</button>
+        </a>
+        <a href="{% url 'medico_list' %}" class="button-anchor">
+            <button class="button-menu">Médicos</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

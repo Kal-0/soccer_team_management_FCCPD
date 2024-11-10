@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Championship Management{% endblock %}
+
+{% block content %}
+<div class="menu">
+    <h1 class="title">
+        Campeonatos
+    </h1>
+    <p class="subtitle">
+        Selecione uma das opções abaixo!
+    </p>
+    <div class="button-container">
+        <a href="{% url 'campeonato_create' %}" class="button-anchor">
+            <button class="button-menu">Inserir campeonato</button>
+        </a>
+        <a href="{% url 'campeonato_list' %}" class="button-anchor">
+            <button class="button-menu">Ver todos os campeonatos</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

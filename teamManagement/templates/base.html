@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'imgs/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>{% block title %}Championship Management{% endblock %}</title>
+</head>
+<body>
+    <header class="head">
+        <img src="{% static 'imgs/site_logo.png' %}" alt="Logo do site" class="logo">
+        <div class="selection-box">
+            <a href="{% url 'home' %}" class="option" title="Home">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="{% url 'campeonato_menu' %}" class="option" title="Campeonatos">
+                <i class="fas fa-trophy"></i>
+            </a>
+            <a href="{% url 'clube_list' %}" class="option" title="Clubes">
+                <i class="fas fa-futbol"></i>
+            </a>
+            <a href="{% url 'jogador_list' %}" class="option" title="Jogadores">
+                <i class="fas fa-user"></i>
+            </a>
+            <a href="{% url 'treinador_list' %}" class="option" title="Treinadores">
+                <i class="fas fa-chalkboard-teacher"></i>
+            </a>
+            <a href="{% url 'medico_list' %}" class="option" title="Médicos">
+                <i class="fas fa-user-md"></i>
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="foot">
+        <img src="{% static 'imgs/site_logo.png' %}" alt="Logo do site" class="foot-logo">
+    </footer>
+</body>
+</html>

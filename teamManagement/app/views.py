@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import CampeonatoForm, ClubeForm, JogadorForm, TreinadorForm
-from .models import Campeonato, Clube, Jogador, Treinador
+from .forms import CampeonatoForm, ClubeForm, JogadorForm, TreinadorForm, MedicoForm
+from .models import Campeonato, Clube, Jogador, Treinador, Medico
 
 # ========================== CAMPEONATO =======================================
 
@@ -153,3 +153,37 @@ def treinador_delete(request, cpf):
         treinador.delete()
         return redirect('treinador_list')
     return render(request, 'treinadores/deleteTreinador.html', {'treinador': treinador})
+
+# ========================== MEDICO =======================================
+
+def medico_list(request):
+    medicos = Medico.objects.all()
+    return render(request, 'medicos/listaMedico.html', {'medicos': medicos})
+
+def medico_create(request):
+    if request.method == 'POST':
+        form = MedicoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('medico_list')
+    else:
+        form = MedicoForm()
+    return render(request, 'medicos/formMedico.html', {'form': form})
+
+def medico_update(request, id):
+    medico = get_object_or_404(Medico, id=id)
+    if request.method == 'POST':
+        form = MedicoForm(request.POST, instance=medico)
+        if form.is_valid():
+            form.save()
+            return redirect('medico_list')
+    else:
+        form = MedicoForm(instance=medico)
+    return render(request, 'medicos/formMedico.html', {'form': form})
+
+def medico_delete(request, id):
+    medico = get_object_or_404(Medico, id=id)
+    if request.method  == 'POST':
+        medico.delete()
+        return redirect('medico_list')
+    return render(request, 'medicos/deleteMedico.html', {'medico': medico})

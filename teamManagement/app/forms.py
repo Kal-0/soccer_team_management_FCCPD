@@ -1,5 +1,5 @@
 from django import forms
-from .models import Jogador, Campeonato, Clube, Treinador
+from .models import Jogador, Campeonato, Clube, Treinador, Medico
 
 class CampeonatoForm(forms.ModelForm):
     class Meta:
@@ -29,3 +29,11 @@ class TreinadorForm(forms.ModelForm):
         model = Treinador
         fields = ['cpf', 'nome', 'categoria', 'tempo_contrato', 'cargo',
                    'dt_nascimento', 'salario', 'clube']
+
+class MedicoForm(forms.ModelForm):
+    clube = forms.ModelChoiceField(
+        queryset=Clube.objects.all(), required=True, label="Clube")
+    
+    class Meta:
+        model = Medico
+        fields = ['nome', 'crm', 'especializacao', 'dt_nascimento', 'salario', 'clube']

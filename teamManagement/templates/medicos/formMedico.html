@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% if form.instance.pk %}Editar Médico{% else %}Adicionar Novo Médico{% endif %}</title>
+</head>
+
+<body>
+    <h2>{% if form.instance.pk %}Editar Médico{% else %}Adicionar Novo Médico{% endif %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            {{ form.nome }}
+        </div>
+        <div class="form-group">
+            <label for="crm">CRM</label>
+            {{ form.crm }}
+        </div>
+        <div class="form-group">
+            <label for="especializacao">Especialização</label>
+            {{ form.especializacao }}
+        </div>
+        <div class="form-group">
+            <label for="dt_nascimento">Data de Nascimento</label>
+            <input type="date" name="dt_nascimento" id="dt_nascimento" value="{{ form.dt_nascimento.value|date:'Y-m-d' }}">
+        </div>
+        <div class="form-group">
+            <label for="salario">Salário</label>
+            {{ form.salario }}
+        </div>
+        <div class="form-group">
+            <label for="clube">Clube</label>
+            {{ form.clube }}
+        </div>
+        <button type="submit">Salvar</button>
+        <a href="{% url 'medico_list' %}">Cancelar</a>
+    </form>
+</body>
+
+</html>

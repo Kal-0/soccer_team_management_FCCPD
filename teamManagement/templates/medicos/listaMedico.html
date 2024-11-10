@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Médicos</title>
+</head>
+
+<body>
+    <h2>Lista de Médicos</h2>
+    <a href="{% url 'medico_create' %}">Adicionar Novo Médico</a>
+    <ul>
+        {% for medico in medicos %}
+        <li>
+            {{ medico.nome }} - {{ medico.crm }}
+            <a href="{% url 'medico_update' medico.id %}">Editar</a>
+            <a href="{% url 'medico_delete' medico.id %}">Deletar</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>

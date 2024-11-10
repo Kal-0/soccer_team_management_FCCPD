@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Jogadores - Championship Management{% endblock %}
+
+{% block content %}
+<div class="menu">
+    <h1 class="title">
+        Jogadores
+    </h1>
+    <p class="subtitle">
+        Selecione uma das opções abaixo!
+    </p>
+    <div class="button-container">
+        <a href="{% url 'jogador_create' %}" class="button-anchor">
+            <button class="button-menu">Inserir jogador</button>
+        </a>
+        <a href="{% url 'jogador_list' %}" class="button-anchor">
+            <button class="button-menu">Ver todos os jogadores</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

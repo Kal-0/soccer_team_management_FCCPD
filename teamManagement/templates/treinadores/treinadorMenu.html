@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Treinadores - Championship Management{% endblock %}
+
+{% block content %}
+<div class="menu">
+    <h1 class="title">
+        Treinadores
+    </h1>
+    <p class="subtitle">
+        Selecione uma das opções abaixo!
+    </p>
+    <div class="button-container">
+        <a href="{% url 'treinador_create' %}" class="button-anchor">
+            <button class="button-menu">Inserir clube</button>
+        </a>
+        <a href="{% url 'treinador_list' %}" class="button-anchor">
+            <button class="button-menu">Ver todos os clubes</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

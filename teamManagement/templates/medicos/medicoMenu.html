@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Médicos - Championship Management{% endblock %}
+
+{% block content %}
+<div class="menu">
+    <h1 class="title">
+        Médicos
+    </h1>
+    <p class="subtitle">
+        Selecione uma das opções abaixo!
+    </p>
+    <div class="button-container">
+        <a href="{% url 'medico_create' %}" class="button-anchor">
+            <button class="button-menu">Inserir clube</button>
+        </a>
+        <a href="{% url 'medico_list' %}" class="button-anchor">
+            <button class="button-menu">Ver todos os clubes</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

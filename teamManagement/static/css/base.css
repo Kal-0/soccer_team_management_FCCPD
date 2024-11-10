@@ -145,6 +145,10 @@ body {
 }
 
 @media (max-width: 768px) {
+    .logo {
+        width: 50%;
+    }
+
     .option {
         font-size: 20px;
     }
@@ -160,6 +164,10 @@ body {
 
     .button-menu {
         width: 80%;
+    }
+
+    .foot-logo {
+        height: 90%;
     }
 }
 

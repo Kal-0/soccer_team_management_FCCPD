@@ -1,80 +1,83 @@
-create database if not exists team_management;
+CREATE DATABASE IF NOT EXISTS team_management;
 
-use team_management;
+USE team_management;
 
-create table campeonato(
-nome varchar(100),
-modelo varchar(100),
-premiacao varchar(100),
-dt_termino date,
-dt_inicio date,
-id integer PRIMARY key
+CREATE TABLE campeonatos (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    modelo VARCHAR(100),
+    premiacao VARCHAR(100),
+    dt_termino DATE,
+    dt_inicio DATE
 );
 
-create table clube(
-nome varchar(255),
-id integer PRIMARY KEY,
-dt_fundacao date,
-titulos varchar(255)
+CREATE TABLE clubes (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    dt_fundacao DATE,
+    titulos VARCHAR(255)
 );
 
-create table jogador(
-nome varchar(255),
-cpf varchar(100) primary key,
-posicao varchar(50),
-numero integer,
-tempo_contrato varchar(100),
-titular boolean,
-dt_nascimento date,
-salario double
+CREATE TABLE jogadores (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,  -- Agora tem id como chave primária
+    cpf VARCHAR(100) UNIQUE,  -- Tornou o CPF único
+    nome VARCHAR(255),
+    posicao VARCHAR(50),
+    numero INTEGER,
+    tempo_contrato VARCHAR(100),
+    titular BOOLEAN,
+    dt_nascimento DATE,
+    salario DOUBLE
 );
 
-create table treinador(
-dt_nascimento date,
-salario double,	
-nome varchar(255),
-cpf varchar(100) primary key,
-categoria varchar(50),
-tempo_contrato varchar(100),
-cargo varchar(30)
+CREATE TABLE treinadores (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,  -- Agora tem id como chave primária
+    cpf VARCHAR(100) UNIQUE,  -- Tornou o CPF único
+    nome VARCHAR(255),
+    categoria VARCHAR(50),
+    tempo_contrato VARCHAR(100),
+    cargo VARCHAR(30),
+    dt_nascimento DATE,
+    salario DOUBLE
 );
 
-create table medico(
-salario double,
-nome varchar(255),
-dt_nascimento date,
-crm varchar(100) primary key,
-especializacao varchar(50)
+CREATE TABLE medicos (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,  -- Agora tem id como chave primária
+    crm VARCHAR(100) UNIQUE,  -- Tornou o CRM único
+    nome VARCHAR(255),
+    especializacao VARCHAR(50),
+    dt_nascimento DATE,
+    salario DOUBLE
 );
 
-create table participa(
-    campeonato_id integer,
-    clube_id integer,
-    primary key (campeonato_id, clube_id),
-    foreign key (campeonato_id) references campeonato(id),
-    foreign key (clube_id) references clube(id)
+CREATE TABLE campeonato_clube (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,  -- Agora tem id como chave primária
+    campeonato_id INTEGER,
+    clube_id INTEGER,
+    FOREIGN KEY (campeonato_id) REFERENCES campeonatos(id),
+    FOREIGN KEY (clube_id) REFERENCES clubes(id)
 );
 
-create table possui(
-    clube_id integer,
-    jogador_cpf varchar(100),
-    primary key (clube_id, jogador_cpf),
-    foreign key (clube_id) references clube(id),
-    foreign key (jogador_cpf) references jogador(cpf)
+CREATE TABLE clube_jogador (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,  -- Agora tem id como chave primária
+    clube_id INTEGER,
+    jogador_id INTEGER,
+    FOREIGN KEY (clube_id) REFERENCES clubes(id),
+    FOREIGN KEY (jogador_id) REFERENCES jogadores(id)
 );
 
-create table comanda(
-    clube_id integer,
-    treinador_cpf varchar(100),
-    primary key (clube_id, treinador_cpf),
-    foreign key (clube_id) references clube(id),
-    foreign key (treinador_cpf) references treinador(cpf)
+CREATE TABLE clube_treinador (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,  -- Agora tem id como chave primária
+    clube_id INTEGER,
+    treinador_id INTEGER,
+    FOREIGN KEY (clube_id) REFERENCES clubes(id),
+    FOREIGN KEY (treinador_id) REFERENCES treinadores(id)
 );
 
-create table emprega(
-    clube_id integer,
-    medico_crm varchar(100),
-    primary key (clube_id, medico_crm),
-    foreign key (clube_id) references clube(id),
-    foreign key (medico_crm) references medico(crm)
+CREATE TABLE clube_medico (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,  -- Agora tem id como chave primária
+    clube_id INTEGER,
+    medico_id INTEGER,
+    FOREIGN KEY (clube_id) REFERENCES clubes(id),
+    FOREIGN KEY (medico_id) REFERENCES medicos(id)
 );

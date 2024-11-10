@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CampeonatoForm, ClubeForm, JogadorForm
 from .models import Campeonato, Clube, Jogador
 
-# ==========================CAMPEONATO=======================================
-
+# ========================== CAMPEONATO =======================================
 
 def campeonato_list(request):
     campeonatos = Campeonato.objects.all()
@@ -40,8 +39,7 @@ def campeonato_delete(request, id):
         return redirect('campeonatos/campeonato_list')
     return render(request, 'campeonatos/deleteCampeonato.html', {'campeonato': campeonato})
 
-# ==========================CUBE=======================================
-
+# ========================== CLUBE =======================================
 
 def clube_list(request):
     clubes = Clube.objects.all()
@@ -52,10 +50,10 @@ def clube_create(request):
     if request.method == 'POST':
         form = ClubeForm(request.POST)
         if form.is_valid():
-            clube = form.save()
+            clube = form.save()  # Salva o clube para obter o ID
             campeonatos = form.cleaned_data['campeonatos']
-            clube.campeonato_set.set(campeonatos)
-            return redirect('clubes/clube_list')
+            clube.campeonatos.set(campeonatos)  # Define os campeonatos associados
+            return redirect('clube_list')
     else:
         form = ClubeForm()
     return render(request, 'clubes/formClube.html', {'form': form})
@@ -66,8 +64,10 @@ def clube_update(request, id):
     if request.method == 'POST':
         form = ClubeForm(request.POST, instance=clube)
         if form.is_valid():
-            form.save()
-            return redirect('clubes/clube_list')
+            clube = form.save()  # Salva o clube
+            campeonatos = form.cleaned_data['campeonatos']
+            clube.campeonatos.set(campeonatos)  # Atualiza os campeonatos
+            return redirect('clube_list')
     else:
         form = ClubeForm(instance=clube)
     return render(request, 'clubes/formClube.html', {'form': form})
@@ -77,11 +77,10 @@ def clube_delete(request, id):
     clube = get_object_or_404(Clube, id=id)
     if request.method == 'POST':
         clube.delete()
-        return redirect('clubes/clube_list')
+        return redirect('clube_list')
     return render(request, 'clubes/deleteClube.html', {'clube': clube})
 
-# ==========================JOGADOR=======================================
-
+# ========================== JOGADOR =======================================
 
 def jogador_list(request):
     jogadores = Jogador.objects.all()
@@ -92,10 +91,10 @@ def jogador_create(request):
     if request.method == 'POST':
         form = JogadorForm(request.POST)
         if form.is_valid():
-            jogador = form.save(commit=False)
-            jogador.save()
+            jogador = form.save(commit=False)  # Salva sem comitar para ajustes adicionais
+            jogador.save()  # Salva o jogador
             clube = form.cleaned_data['clube']
-            clube.jogador_set.add(jogador)
+            clube.jogador_set.add(jogador)  # Associa o jogador ao clube
             return redirect('jogadores/jogador_list')
     else:
         form = JogadorForm()
@@ -108,7 +107,7 @@ def jogador_update(request, cpf):
         form = JogadorForm(request.POST, instance=jogador)
         if form.is_valid():
             form.save()
-            return redirect('jogadores/listaJogador')
+            return redirect('jogadores/jogador_list')
     else:
         form = JogadorForm(instance=jogador)
     return render(request, 'jogadores/formJogador.html', {'form': form})
@@ -118,5 +117,5 @@ def jogador_delete(request, cpf):
     jogador = get_object_or_404(Jogador, cpf=cpf)
     if request.method == 'POST':
         jogador.delete()
-        return redirect('jogadores/listaJogador')
+        return redirect('jogadores/jogador_list')
     return render(request, 'jogadores/deleteJogador.html', {'jogador': jogador})

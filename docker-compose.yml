@@ -4,7 +4,7 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_DATABASE: soccer_team_db
+      MYSQL_DATABASE: team_management
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
@@ -31,7 +31,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_NAME=soccer_team_db
+      - DATABASE_NAME=team_management
       - DATABASE_USER=root
       - DATABASE_PASSWORD=root
       - DATABASE_HOST=db

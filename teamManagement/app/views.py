@@ -10,6 +10,18 @@ def home(request):
 def campeonato_menu(request):
     return render(request, 'campeonatos/campeonatoMenu.html')
 
+def clube_menu(request):
+    return render(request, 'clubes/clubeMenu.html')
+
+def jogador_menu(request):
+    return render(request, 'jogadores/jogadorMenu.html')
+
+def treinador_menu(request):
+    return render(request, 'treinadores/treinadorMenu.html')
+
+def medico_menu(request):
+    return render(request, 'medicos/medicoMenu.html')
+
 # ========================== CAMPEONATO =======================================
 
 def campeonato_list(request):
@@ -129,7 +141,7 @@ def jogador_delete(request, cpf):
     return render(request, 'jogadores/deleteJogador.html', {'jogador': jogador})
 
 
-# ========================== JOGADOR =======================================
+# ========================== TREINADOR =======================================
 def treinador_list(request):
     treinadores = Treinador.objects.all()
     return render(request, 'treinadores/listaTreinador.html', {'treinadores': treinadores})

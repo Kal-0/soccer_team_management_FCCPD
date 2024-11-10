@@ -76,25 +76,31 @@ INSERT INTO campeonatos (nome, modelo, premiacao, dt_termino, dt_inicio) VALUES
 
 -- Populando a tabela clubes (times nordestinos e Rosenborg)
 INSERT INTO clubes (nome, dt_fundacao, titulos) VALUES
-('Sport Club do Recife', '1905-05-13', '3 Campeonatos Brasileiros, 1 Copa do Brasil, 1 Copa Norte'),
-('Bahia', '1931-01-01', '2 Campeonatos Brasileiros, 5 Copas do Nordeste, 1 Copa do Brasil'),
-('Ceará Sporting Club', '1914-06-02', '1 Copa do Brasil, 6 Copas do Nordeste, 1 Campeonato Brasileiro Série B'),
-('Fortaleza', '1918-10-18', '1 Copa do Brasil, 2 Copas do Nordeste, 1 Campeonato Brasileiro Série B'),
-('Vitoria', '1899-05-13', '2 Copas do Brasil, 1 Campeonato Brasileiro Série A'),
+('Sport Club do Recife', '1905-05-13', '1 Campeonato Brasileiro Série A, 1 Copa do Brasil, 3 Copa do Nordesete'),
+('Bahia', '1931-01-01', '2 Campeonatos Brasileiros, 4 Copas do Nordeste'),
+('Ceara Sporting Club', '1914-06-02', ' 2 Copas do Nordeste, 1 Campeonato Brasileiro Série B'),
+('Fortaleza', '1918-10-18', '2 Copas do Nordeste, 1 Campeonato Brasileiro Série B'),
+('Vitoria', '1899-05-13', '1 Campeonato Brasileiro Série B'),
 ('Rosenborg BK', '1917-05-19', '26 Norweigian Eliteserien titles, 12 Norwegian Cups');
 
 -- Populando a tabela jogadores com novos jogadores
 INSERT INTO jogadores (cpf, nome, posicao, numero, tempo_contrato, titular, dt_nascimento, salario, clube_id) VALUES
-('12345678901', 'Cristiano Ronaldo', 'Meio-campo', 8, '3 anos', true, '1991-07-05', 800000, 1),
-('23456789012', 'Anderson Pedra', 'Meio-campo', 17, '2 anos', true, '1995-10-14', 400000, 2),
+('12345678901', 'Cristiano Ronaldo', 'Atacante', 8, '3 anos', true, '1991-07-05', 800000, 1),
+('56789012341', 'Lionel Messe', 'Ponta direita', 44, '4 anos', true, '1987-09-21', 950000, 1),
+('23456789012', 'Anderson Pedra', 'Meio-campo', 17, '2 anos', true, '1995-11-24', 400000, 2),
+('23456799012', 'Michael Jordan', 'Goleiro', 23, '2 anos', true, '1995-10-14', 400000, 2),
 ('34567890123', 'Ricardinho', 'Meio-campo', 20, '1 ano', false, '1987-01-06', 350000, 3),
-('45678901234', 'Vinícius Souza', 'Volante', 15, '5 anos', true, '1997-02-14', 600000, 4),
+('86564196123', 'Kobe Bryant', 'Lateral direito', 24, '1 ano', false, '1997-01-06', 350000, 3),
+('45678901234', 'Vinicius Souza', 'Volante', 15, '5 anos', true, '1997-02-14', 600000, 4),
+('45658109234', 'Diogo Henrique', 'Lateral esquerdo', 69, '5 anos', true, '2004-09-12', 600000, 4),
 ('56789012345', 'Rudiger', 'Zagueiro', 3, '4 anos', true, '1992-09-21', 550000, 5),
-('67890123456', 'Carlos Eduardo', 'Atacante', 11, '2 anos', false, '1996-01-18', 450000, 6);
+('56789012345', 'Mason Mount', 'Meio-campo', 3, '4 anos', true, '1982-04-11', 550000, 5),
+('67890123456', 'Carlos Eduardo', 'Atacante', 11, '2 anos', false, '1996-01-18', 450000, 6),
+('65891123456', 'Ronaldo', 'Zagueiro', 11, '2 anos', false, '1991-11-15', 450000, 6);
 
 -- Populando a tabela treinadores com novos técnicos
 INSERT INTO treinadores (cpf, nome, categoria, tempo_contrato, cargo, dt_nascimento, salario, clube_id) VALUES
-('78901234567', 'Guto Ferreira', 'A', '2 anos', 'Treinador principal', '1963-01-10', 1200000, 1),
+('78901234567', 'Pep Guardiola', 'A', '2 anos', 'Treinador principal', '1963-01-10', 1200000, 1),
 ('89012345678', 'Roger Machado', 'A', '1 ano', 'Treinador principal', '1975-02-16', 1000000, 2),
 ('90123456789', 'Jorge Sampaoli', 'A', '2 anos', 'Treinador principal', '1960-03-11', 1800000, 3),
 ('01234567890', 'Vagner Mancini', 'B', '1 ano', 'Treinador assistente', '1961-09-24', 800000, 4),

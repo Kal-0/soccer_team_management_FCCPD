@@ -4,25 +4,32 @@ from .models import Campeonato, Clube, Jogador, Treinador, Medico
 
 # ========================== UTILS =======================================
 
+
 def home(request):
     return render(request, 'index.html')
+
 
 def campeonato_menu(request):
     return render(request, 'campeonatos/campeonatoMenu.html')
 
+
 def clube_menu(request):
     return render(request, 'clubes/clubeMenu.html')
+
 
 def jogador_menu(request):
     return render(request, 'jogadores/jogadorMenu.html')
 
+
 def treinador_menu(request):
     return render(request, 'treinadores/treinadorMenu.html')
+
 
 def medico_menu(request):
     return render(request, 'medicos/medicoMenu.html')
 
 # ========================== CAMPEONATO =======================================
+
 
 def campeonato_list(request):
     campeonatos = Campeonato.objects.all()
@@ -61,6 +68,7 @@ def campeonato_delete(request, id):
 
 # ========================== CLUBE =======================================
 
+
 def clube_list(request):
     clubes = Clube.objects.all()
     return render(request, 'clubes/listaClube.html', {'clubes': clubes})
@@ -72,7 +80,8 @@ def clube_create(request):
         if form.is_valid():
             clube = form.save()  # Salva o clube para obter o ID
             campeonatos = form.cleaned_data['campeonatos']
-            clube.campeonatos.set(campeonatos)  # Define os campeonatos associados
+            # Define os campeonatos associados
+            clube.campeonatos.set(campeonatos)
             return redirect('clube_list')
     else:
         form = ClubeForm()
@@ -102,6 +111,7 @@ def clube_delete(request, id):
 
 # ========================== JOGADOR =======================================
 
+
 def jogador_list(request):
     jogadores = Jogador.objects.all()
     return render(request, 'jogadores/listaJogador.html', {'jogadores': jogadores})
@@ -111,7 +121,8 @@ def jogador_create(request):
     if request.method == 'POST':
         form = JogadorForm(request.POST)
         if form.is_valid():
-            jogador = form.save(commit=False)  # Salva sem comitar para ajustes adicionais
+            # Salva sem comitar para ajustes adicionais
+            jogador = form.save(commit=False)
             jogador.save()  # Salva o jogador
             clube = form.cleaned_data['clube']
             clube.jogadores.add(jogador)  # Associa o jogador ao clube
@@ -146,6 +157,7 @@ def treinador_list(request):
     treinadores = Treinador.objects.all()
     return render(request, 'treinadores/listaTreinador.html', {'treinadores': treinadores})
 
+
 def treinador_create(request):
     if request.method == 'POST':
         form = TreinadorForm(request.POST)
@@ -156,16 +168,18 @@ def treinador_create(request):
         form = TreinadorForm()
     return render(request, 'treinadores/formTreinador.html', {'form': form})
 
+
 def treinador_update(request, cpf):
     treinador = get_object_or_404(Treinador, cpf=cpf)
     if request.method == 'POST':
-       form = TreinadorForm(request.POST, instance=treinador)
-       if form.is_valid():
-           form.save()
-           return redirect('treinador_list')
+        form = TreinadorForm(request.POST, instance=treinador)
+        if form.is_valid():
+            form.save()
+            return redirect('treinador_list')
     else:
         form = TreinadorForm(instance=treinador)
     return render(request, 'treinadores/formTreinador.html', {'form': form})
+
 
 def treinador_delete(request, cpf):
     treinador = get_object_or_404(Treinador, cpf=cpf)
@@ -176,9 +190,11 @@ def treinador_delete(request, cpf):
 
 # ========================== MEDICO =======================================
 
+
 def medico_list(request):
     medicos = Medico.objects.all()
     return render(request, 'medicos/listaMedico.html', {'medicos': medicos})
+
 
 def medico_create(request):
     if request.method == 'POST':
@@ -189,6 +205,7 @@ def medico_create(request):
     else:
         form = MedicoForm()
     return render(request, 'medicos/formMedico.html', {'form': form})
+
 
 def medico_update(request, id):
     medico = get_object_or_404(Medico, id=id)
@@ -201,9 +218,10 @@ def medico_update(request, id):
         form = MedicoForm(instance=medico)
     return render(request, 'medicos/formMedico.html', {'form': form})
 
+
 def medico_delete(request, id):
     medico = get_object_or_404(Medico, id=id)
-    if request.method  == 'POST':
+    if request.method == 'POST':
         medico.delete()
         return redirect('medico_list')
     return render(request, 'medicos/deleteMedico.html', {'medico': medico})
@@ -214,13 +232,17 @@ def medico_delete(request, id):
 def consulta_menu(request):
     return render(request, 'consultas/consultaMenu.html')
 
+
 def jogadores_clubes_campeonatos(request):
-    jogadores = Jogador.objects.select_related('clube').prefetch_related('clube__campeonatos')
+    jogadores = Jogador.objects.select_related(
+        'clube').prefetch_related('clube__campeonatos')
     return render(request, 'consultas/jogadores_clubes_campeonatos.html', {'jogadores': jogadores})
+
 
 def treinadores_medicos_por_clube(request):
     clubes = Clube.objects.prefetch_related('treinadores', 'medicos')
     return render(request, 'consultas/treinadores_medicos_por_clube.html', {'clubes': clubes})
+
 
 def clubes_campeonatos_datas(request):
     clubes = Clube.objects.prefetch_related('campeonatos')

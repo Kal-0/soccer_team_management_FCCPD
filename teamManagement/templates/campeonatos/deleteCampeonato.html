@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -7,12 +10,22 @@
 </head>
 
 <body>
-    <h2>Tem certeza de que deseja deletar o campeonato "{{ campeonato.nome }}"?</h2>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Deletar</button>
-        <a href="{% url 'campeonato_list' %}">Cancelar</a>
-    </form>
+    {% block content %}
+    <div class="container">
+        <div class="delete-form">
+            <h2 class="title">Tem certeza de que deseja deletar o campeonato "{{ campeonato.nome }}"?</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="button-container">
+                    <button type="submit" class="delete-button">Deletar</button>
+                    <a href="{% url 'campeonato_list' %}" class="button-anchor">
+                        <button type="button" class="close-button">Cancelar</button>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endblock %}
 </body>
 
 </html>

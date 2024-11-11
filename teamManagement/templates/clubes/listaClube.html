@@ -1,23 +1,64 @@
-<!DOCTYPE html>
-<html lang="pt">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Clubes</title>
-</head>
+{% block title %}Lista de Clubes{% endblock %}
 
-<body>
-    <h2>Lista de Clubes</h2>
-    <a href="{% url 'clube_create' %}">Adicionar Novo Clube</a>
-    <ul>
+{% block content %}
+<div class="list-container">
+    <h2 class="title">Lista de Clubes</h2>
+    <ul class="lista">
         {% for clube in clubes %}
-        <li>
-            {{ clube.nome }} - {{ clube.dt_fundacao }} - {{ clube.titulos }}
-            <a href="{% url 'clube_update' clube.id %}">Editar</a>
-            <a href="{% url 'clube_delete' clube.id %}">Deletar</a>
+        <li class="championship-item">
+            <span class="item championship-name" onclick="toggleDetails('{{ clube.id }}')">
+                {{ clube.nome }}
+            </span>
+            <div class="championship-details" id="details-{{ clube.id }}" style="display: none;">
+                <span class="item"><strong>Nome:</strong> {{ clube.nome }}</span><br>
+                <span class="item"><strong>Data de fundação:</strong> {{ clube.dt_fundacao }}</span><br>
+                <span class="item"><strong>Títulos:</strong> {{ clube.titulos }}</span><br>
+
+                <!-- Campeonatos do clube -->
+                <span class="item"><strong>Campeonatos:</strong></span><br>
+                {% if clube.campeonatos.all %}
+                    <ul class="aux-list">
+                        {% for campeonato in clube.campeonatos.all %}
+                            <li>{{ campeonato.nome }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <span>Este clube não participa de nenhum campeonato.</span>
+                {% endif %}
+
+                <a href="{% url 'clube_update' clube.id %}" class="option">Editar</a> |
+                <a href="{% url 'clube_delete' clube.id %}" class="option">Deletar</a><br>
+                <button class="close-button" onclick="toggleDetails('{{ clube.id }}')">Fechar</button>
+            </div>
         </li>
+        {% empty %}
+        <li>Nenhum clube encontrado.</li>
         {% endfor %}
     </ul>
-</body>
+    <div class="bottom-container">
+        <a href="{% url 'clube_create' %}" class="list-button">Novo Clube</a>
+        <a href="{% url 'clube_menu' %}" class="list-button">Voltar</a>
+    </div>
+</div>
+{% endblock %}
 
-</html>
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function toggleDetails(id) {
+            const details = document.getElementById("details-" + id);
+
+            if (details) {
+                const isVisible = details.style.display === "block";
+                details.style.display = isVisible ? "none" : "block";
+            } else {
+                console.error("Elemento não encontrado para o ID:", id);
+            }
+        }
+
+        window.toggleDetails = toggleDetails;
+    });
+</script>
+{% endblock %}

@@ -1,3 +1,4 @@
+/*Base Style*/
 * {
     margin: 0;
     padding: 0;
@@ -132,6 +133,277 @@ body {
     height: 80%;
 }
 
+/*List Style*/
+.list-container {
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.lista {
+    list-style: none;
+    padding: 10px;
+}
+
+.lista li {
+    background-color: #f1f8e9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lista li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.15);
+}
+
+.item {
+    background-color: #FFF;
+    padding: 15px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+.subtitle {
+    font-size: 22px;
+    color: #2e7d32;
+    font-weight: 700;
+}
+
+.option {
+    font-size: 18px;
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.option:hover {
+    color: #66bb6a;
+    transform: scale(1.1);
+}
+
+.list-button {
+    display: inline-block;
+    color: #ffffff;
+    background-color: #2e7d32;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.list-button:hover {
+    background-color: #66bb6a;
+    transform: translateY(-3px);
+    box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.2);
+}
+
+.close-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+    background-color: #66bb6a;
+}
+
+.bottom-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.aux-list {
+    list-style: none;
+}
+
+.aux-list li {
+    background-color: #4ecc54;
+}
+
+/*Add and Update Forms*/
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-title {
+    font-size: 28px;
+    text-align: center;
+    color: #000;
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #2e7d32;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+
+/*Delete Form*/
+.delete-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.delete-button {
+    width: 180px;
+    color: #000;
+    background-color: red;
+    font-weight: 900;
+    border-radius: 28px;
+    border: 0;
+    height: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+.delete-button:hover {
+    cursor: pointer;
+    color: #FFF;
+    background-color: darkred;
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 12px 0px rgba(0, 0, 0, 0.30);
+}
+
+/*Joins*/
+.player-club-championships-table {
+    width: 100%;
+}
+
+.player-club-championships-table th,
+.player-club-championships-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.player-name,
+.club-name {
+    padding-left: 20px;
+}
+
+.championship-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.championship-item {
+    margin-bottom: 15px;
+}
+
+.trainer-list,
+.doctor-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.trainer-item,
+.doctor-item {
+    margin-bottom: 15px;
+}
+
+.trainer-name,
+.doctor-name {
+    cursor: pointer;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.trainer-details,
+.doctor-details {
+    margin-top: 10px;
+    padding-left: 20px;
+    background-color: #f9f9f9;
+    border-left: 3px solid #007bff;
+}
+
+.club-championships-table {
+    border-collapse: collapse;
+}
+
+.club-championships-table th,
+.championships-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.championships-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.championships-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/*Utils*/
 @keyframes slideIn {
     from {
         transform: translateY(50px);

@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Deletar Médico</title>
-</head>
-
-<body>
-    <h2>Tem certeza de que deseja deletar o médico "{{ medico.nome }}"?</h2>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Deletar</button>
-        <a href="{% url 'medico_list' %}">Cancelar</a>
-    </form>
-</body>
-
-</html>
+{% block content %}
+<div class="container">
+    <div class="delete-form">
+        <h2 class="title">Tem certeza de que deseja deletar o médico "{{ medico.nome }}"?</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="button-container">
+                <button type="submit" class="delete-button">Deletar</button>
+                <a href="{% url 'medico_list' %}" class="button-anchor">
+                    <button type="button" class="close-button">Cancelar</button>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

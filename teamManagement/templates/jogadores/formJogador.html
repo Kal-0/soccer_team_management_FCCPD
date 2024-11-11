@@ -1,57 +1,69 @@
-<!DOCTYPE html>
-<html lang="pt">
+{% extends "base.html" %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>{% if form.instance.pk %}Editar Jogador{% else %}Adicionar Novo Jogador{% endif %}</title>
-</head>
+{% block title %}
+{% if form.instance.pk %}Editar Jogador{% else %}Adicionar Novo Jogador{% endif %}
+{% endblock %}
 
-<body>
-    <div>
-        <h2>{% if form.instance.pk %}Editar Jogador{% else %}Adicionar Novo Jogador{% endif %}</h2>
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                {{ form.nome }}
-            </div>
-            <div class="form-group">
-                <label for="cpf">CPF</label>
-                {{ form.cpf }}
-            </div>
-            <div class="form-group">
-                <label for="posicao">Posição</label>
-                {{ form.posicao }}
-            </div>
-            <div class="form-group">
-                <label for="numero">Número</label>
-                {{ form.numero }}
-            </div>
-            <div class="form-group">
-                <label for="tempo_contrato">Tempo de Contrato</label>
-                {{ form.tempo_contrato }}
-            </div>
-            <div class="form-group form-check">
-                {{ form.titular }}
-                <label class="form-check-label" for="titular">Titular</label>
-            </div>
-            <div class="form-group">
-                <label for="dt_nascimento">Data de Nascimento</label>
-                <input type="date" name="dt_nascimento" id="dt_nascimento" class="form-control"
-                    value="{{ form.dt_nascimento.value|date:'Y-m-d' }}">
-            </div>
-            <div class="form-group">
-                <label for="salario">Salário</label>
-                {{ form.salario }}
-            </div>
-            <div class="form-group">
-                <label for="clube">Clube</label>
-                {{ form.clube }}
-            </div>
-            <button type="submit">Salvar</button>
-            <a href="{% url 'jogador_list' %}">Cancelar</a>
-        </form>
-    </div>
-</body>
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">
+        {% if form.instance.pk %}Editar Jogador{% else %}Adicionar Novo Jogador{% endif %}
+    </h2>
+    <form method="post" class="player-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="nome" class="form-label">Nome</label>
+            {{ form.nome }}
+        </div>
 
-</html>
+        <div class="form-group">
+            <label for="cpf" class="form-label">CPF</label>
+            {{ form.cpf }}
+        </div>
+
+        <div class="form-group">
+            <label for="posicao" class="form-label">Posição</label>
+            {{ form.posicao }}
+        </div>
+
+        <div class="form-group">
+            <label for="numero" class="form-label">Número</label>
+            {{ form.numero }}
+        </div>
+
+        <div class="form-group">
+            <label for="tempo_contrato" class="form-label">Tempo de Contrato</label>
+            {{ form.tempo_contrato }}
+        </div>
+
+        <div class="form-group form-check">
+            {{ form.titular }}
+            <label class="form-check-label" for="titular">Titular</label>
+        </div>
+
+        <div class="form-group">
+            <label for="dt_nascimento" class="form-label">Data de Nascimento</label>
+            <input type="date" name="dt_nascimento" id="dt_nascimento" value="{{ form.dt_nascimento.value|date:'Y-m-d' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="salario" class="form-label">Salário</label>
+            {{ form.salario }}
+        </div>
+
+        <div class="form-group">
+            <label for="clube" class="form-label">Clube</label>
+            {{ form.clube }}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="button-menu">Salvar</button>
+            <a href="{% url 'jogador_list' %}" class="button-anchor">
+                <button type="button" class="button-menu">Cancelar</button>
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

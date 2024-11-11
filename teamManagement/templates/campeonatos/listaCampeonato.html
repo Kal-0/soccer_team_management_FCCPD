@@ -1,23 +1,53 @@
-<!DOCTYPE html>
-<html lang="pt">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Campeonatos</title>
-</head>
+{% block title %}Lista de Campeonatos{% endblock %}
 
-<body>
-    <h2>Lista de Campeonatos</h2>
-    <a href="{% url 'campeonato_create' %}">Adicionar Novo Campeonato</a>
-    <ul>
+{% block content %}
+<div class="list-container">
+    <h2 class="title">Lista de Campeonatos</h2>
+    <ul class="lista">
         {% for campeonato in campeonatos %}
-        <li>
-            {{ campeonato.nome }} - {{ campeonato.modelo }}
-            <a href="{% url 'campeonato_update' campeonato.id %}">Editar</a>
-            <a href="{% url 'campeonato_delete' campeonato.id %}">Deletar</a>
+        <li class="championship-item">
+            <span class="item championship-name" onclick="toggleDetails('{{ campeonato.id }}')">
+                {{ campeonato.nome }}
+            </span>
+            <div class="championship-details" id="details-{{ campeonato.id }}" style="display: none;">
+                <span class="item"><strong>Nome:</strong> {{ campeonato.nome }}</span><br>
+                <span class="item"><strong>Modelo:</strong> {{ campeonato.modelo }}</span><br>
+                <span class="item"><strong>Premiação:</strong> {{ campeonato.premiacao }}</span><br>
+                <span class="item"><strong>Data de Início:</strong> {{ campeonato.dt_inicio|date:"d/m/Y" }}</span><br>
+                <span class="item"><strong>Data de Término:</strong> {{ campeonato.dt_termino|date:"d/m/Y" }}</span><br>
+                <a href="{% url 'campeonato_update' campeonato.id %}" class="option">Editar</a> |
+                <a href="{% url 'campeonato_delete' campeonato.id %}" class="option">Deletar</a><br>
+                <button class="close-button" onclick="toggleDetails('{{ campeonato.id }}')">Fechar</button>
+            </div>
         </li>
+        {% empty %}
+        <li>Nenhum campeonato encontrado.</li>
         {% endfor %}
     </ul>
-</body>
+    <div class="bottom-container">
+        <a href="{% url 'campeonato_create' %}" class="list-button">Novo Campeonato</a>
+        <a href="{% url 'campeonato_menu' %}" class="list-button">Voltar</a>
+    </div>
+</div>
+{% endblock %}
 
-</html>
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function toggleDetails(id) {
+            const details = document.getElementById("details-" + id);
+
+            if (details) {
+                const isVisible = details.style.display === "block";
+                details.style.display = isVisible ? "none" : "block";
+            } else {
+                console.error("Element not found for ID:", id);
+            }
+        }
+
+        window.toggleDetails = toggleDetails;
+    });
+</script>
+{% endblock %}

@@ -1,25 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Treinadores e Médicos por Clube</title>
-</head>
-<body>
-    <h1>Treinadores e Médicos por Clube</h1>
+{% extends "base.html" %}
+
+{% block title %}Treinadores e Médicos por Clube{% endblock %}
+
+{% block content %}
+<div class="list-container">
+    <h2 class="title">Treinadores e Médicos por Clube</h2>
     {% for clube in clubes %}
-    <h2>{{ clube.nome }}</h2>
-    <h3>Treinadores:</h3>
-    <ul>
+    <h3 class="club-name">{{ clube.nome }}</h3>
+    
+    <h4>Treinadores:</h4>
+    <ul class="trainer-list">
         {% for treinador in clube.treinadores.all %}
-        <li>{{ treinador.nome }} - {{ treinador.cargo }}</li>
+        <li class="trainer-item">
+            <span class="item trainer-name" onclick="toggleDetails('{{ treinador.id }}')">
+                {{ treinador.nome }} - {{ treinador.cargo }}
+            </span>
+            <div class="trainer-details" id="details-{{ treinador.id }}" style="display: none;">
+                <span class="item"><strong>Nome:</strong> {{ treinador.nome }}</span><br>
+                <span class="item"><strong>Cargo:</strong> {{ treinador.cargo }}</span><br>
+                <a href="{% url 'treinador_update' treinador.id %}" class="option">Editar</a>
+                <a href="{% url 'treinador_delete' treinador.id %}" class="option">Deletar</a><br>
+                <button class="close-button" onclick="toggleDetails('{{ treinador.id }}')">Fechar</button>
+            </div>
+        </li>
         {% endfor %}
     </ul>
-    <h3>Médicos:</h3>
-    <ul>
+
+    <h4>Médicos:</h4>
+    <ul class="doctor-list">
         {% for medico in clube.medicos.all %}
-        <li>{{ medico.nome }} - {{ medico.especializacao }}</li>
+        <li class="doctor-item">
+            <span class="item doctor-name" onclick="toggleDetails('{{ medico.id }}')">
+                {{ medico.nome }} - {{ medico.especializacao }}
+            </span>
+            <div class="doctor-details" id="details-{{ medico.id }}" style="display: none;">
+                <span class="item"><strong>Nome:</strong> {{ medico.nome }}</span><br>
+                <span class="item"><strong>Especialização:</strong> {{ medico.especializacao }}</span><br>
+                <a href="{% url 'medico_update' medico.id %}" class="option">Editar</a>
+                <a href="{% url 'medico_delete' medico.id %}" class="option">Deletar</a><br>
+                <button class="close-button" onclick="toggleDetails('{{ medico.id }}')">Fechar</button>
+            </div>
+        </li>
         {% endfor %}
     </ul>
+
     {% endfor %}
-</body>
-</html>
+
+    <div class="bottom-container">
+        <a href="{% url 'consulta_menu' %}" class="list-button">Voltar</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function toggleDetails(id) {
+            const details = document.getElementById("details-" + id);
+
+            if (details) {
+                const isVisible = details.style.display === "block";
+                details.style.display = isVisible ? "none" : "block";
+            } else {
+                console.error("Element not found for ID:", id);
+            }
+        }
+
+        window.toggleDetails = toggleDetails;
+    });
+</script>
+{% endblock %}

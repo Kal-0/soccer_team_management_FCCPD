@@ -1,23 +1,54 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Médicos</title>
-</head>
+{% block title %}Lista de Médicos{% endblock %}
 
-<body>
-    <h2>Lista de Médicos</h2>
-    <a href="{% url 'medico_create' %}">Adicionar Novo Médico</a>
-    <ul>
+{% block content %}
+<div class="list-container">
+    <h2 class="title">Lista de Médicos</h2>
+    <ul class="lista">
         {% for medico in medicos %}
-        <li>
-            {{ medico.nome }} - {{ medico.crm }}
-            <a href="{% url 'medico_update' medico.id %}">Editar</a>
-            <a href="{% url 'medico_delete' medico.id %}">Deletar</a>
+        <li class="championship-item">
+            <span class="item championship-name" onclick="toggleDetails('{{ medico.id }}')">
+                {{ medico.nome }} - {{ medico.crm }}
+            </span>
+            <div class="championship-details" id="details-{{ medico.id }}" style="display: none;">
+                <span class="item"><strong>Nome:</strong> {{ medico.nome }}</span><br>
+                <span class="item"><strong>CRM:</strong> {{ medico.crm }}</span><br>
+                <span class="item"><strong>Especialização:</strong> {{ medico.especializacao }}</span><br>
+                <span class="item"><strong>Data de Nascimento:</strong> {{ medico.dt_nascimento }}</span><br>
+                <span class="item"><strong>Salário:</strong> R$ {{ medico.salario|floatformat:2 }}</span><br>
+                <span class="item"><strong>Clube:</strong> {{ medico.clube.nome }}</span><br> <!-- Nome do clube associado ao médico -->
+                <a href="{% url 'medico_update' medico.id %}" class="option">Editar</a> |
+                <a href="{% url 'medico_delete' medico.id %}" class="option">Deletar</a><br>
+                <button class="close-button" onclick="toggleDetails('{{ medico.id }}')">Fechar</button>
+            </div>
         </li>
+        {% empty %}
+        <li>Nenhum médico encontrado.</li>
         {% endfor %}
     </ul>
-</body>
+    <div class="bottom-container">
+        <a href="{% url 'medico_create' %}" class="list-button">Adicionar Novo Médico</a>
+        <a href="{% url 'medico_menu' %}" class="list-button">Voltar</a>
+    </div>
+</div>
+{% endblock %}
 
-</html>
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function toggleDetails(id) {
+            const details = document.getElementById("details-" + id);
+
+            if (details) {
+                const isVisible = details.style.display === "block";
+                details.style.display = isVisible ? "none" : "block";
+            } else {
+                console.error("Elemento não encontrado para o ID:", id);
+            }
+        }
+
+        window.toggleDetails = toggleDetails;
+    });
+</script>
+{% endblock %}

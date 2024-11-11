@@ -35,8 +35,10 @@ class Clube(models.Model):
 
 
 class Jogador(models.Model):
-    id = models.AutoField(primary_key=True)  # Atribuindo chave primária conforme a estrutura
-    cpf = models.CharField(max_length=100, unique=True)  # CPF único conforme especificado
+    # Atribuindo chave primária conforme a estrutura
+    id = models.AutoField(primary_key=True)
+    # CPF único conforme especificado
+    cpf = models.CharField(max_length=100, unique=True)
     nome = models.CharField(max_length=255)
     posicao = models.CharField(max_length=50)
     numero = models.IntegerField()

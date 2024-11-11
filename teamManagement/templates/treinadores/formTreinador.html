@@ -1,53 +1,65 @@
-<!DOCTYPE html>
-<html lang="pt">
+{% extends "base.html" %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>{% if form.instance.pk %}Editar Treinador{% else %}Adicionar Novo Treinador{% endif %}</title>
-</head>
+{% block title %}
+    {% if form.instance.pk %}Editar Treinador{% else %}Adicionar Novo Treinador{% endif %}
+{% endblock %}
 
-<body>
-    <div>
-        <h2>{% if form.instance.pk %}Editar Treinador{% else %}Adicionar Novo Treinador{% endif %}</h2>
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="nome">Nome</label>
-                {{ form.nome }}
-            </div>
-            <div class="form-group">
-                <label for="cpf">CPF</label>
-                {{ form.cpf }}
-            </div>
-            <div class="form-group">
-                <label for="categoria">Categoria</label>
-                {{ form.categoria }}
-            </div>
-            <div class="form-group">
-                <label for="tempo_contrato">Tempo de Contrato</label>
-                {{ form.tempo_contrato }}
-            </div>
-            <div class="form-group">
-                <label for="cargo">Cargo</label>
-                {{ form.cargo }}
-            </div>
-            <div class="form-group">
-                <label for="dt_nascimento">Data de Nascimento</label>
-                <input type="date" name="dt_nascimento" id="dt_nascimento" class="form-control"
-                    value="{{ form.dt_nascimento.value|date:'Y-m-d' }}">
-            </div>
-            <div class="form-group">
-                <label for="salario">Salário</label>
-                {{ form.salario }}
-            </div>
-            <div class="form-group">
-                <label for="clube">Clube</label>
-                {{ form.clube }}
-            </div>
-            <button type="submit">Salvar</button>
-            <a href="{% url 'treinador_list' %}">Cancelar</a>
-        </form>
-    </div>
-</body>
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">
+        {% if form.instance.pk %}Editar Treinador{% else %}Adicionar Novo Treinador{% endif %}
+    </h2>
+    <form method="post" class="trainer-form">
+        {% csrf_token %}
 
-</html>
+        <div class="form-group">
+            <label for="nome" class="form-label">Nome</label>
+            {{ form.nome }}
+        </div>
+
+        <div class="form-group">
+            <label for="cpf" class="form-label">CPF</label>
+            {{ form.cpf }}
+        </div>
+
+        <div class="form-group">
+            <label for="categoria" class="form-label">Categoria</label>
+            {{ form.categoria }}
+        </div>
+
+        <div class="form-group">
+            <label for="tempo_contrato" class="form-label">Tempo de Contrato</label>
+            {{ form.tempo_contrato }}
+        </div>
+
+        <div class="form-group">
+            <label for="cargo" class="form-label">Cargo</label>
+            {{ form.cargo }}
+        </div>
+
+        <div class="form-group">
+            <label for="dt_nascimento" class="form-label">Data de Nascimento</label>
+            <input type="date" name="dt_nascimento" id="dt_nascimento" class="form-control"
+                value="{{ form.dt_nascimento.value|date:'Y-m-d' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="salario" class="form-label">Salário</label>
+            {{ form.salario }}
+        </div>
+
+        <div class="form-group">
+            <label for="clube" class="form-label">Clube</label>
+            {{ form.clube }}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="button-menu">Salvar</button>
+            <a href="{% url 'treinador_list' %}" class="button-anchor">
+                <button type="button" class="button-menu">Cancelar</button>
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

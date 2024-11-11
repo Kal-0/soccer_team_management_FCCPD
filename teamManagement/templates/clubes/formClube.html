@@ -1,34 +1,44 @@
-<!DOCTYPE html>
-<html lang="pt">
+{% extends "base.html" %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>{% if form.instance.pk %}Editar Clube{% else %}Adicionar Novo Clube{% endif %}</title>
-</head>
+{% block title %}
+{% if form.instance.pk %}Editar Clube{% else %}Adicionar Novo Clube{% endif %}
+{% endblock %}
 
-<body>
-    <h2>{% if form.instance.pk %}Editar Clube{% else %}Adicionar Novo Clube{% endif %}</h2>
-    <form method="post">
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">
+        {% if form.instance.pk %}Editar Clube{% else %}Adicionar Novo Clube{% endif %}
+    </h2>
+    <form method="post" class="club-form">
         {% csrf_token %}
+
         <div class="form-group">
-            <label for="nome">Nome</label>
+            <label for="nome" class="form-label">Nome</label>
             {{ form.nome }}
         </div>
+
         <div class="form-group">
             <label for="dt_fundacao">Data de Fundação</label>
             <input type="date" name="dt_fundacao" id="dt_fundacao" value="{{ form.dt_fundacao.value|date:'Y-m-d' }}">
         </div>
+
         <div class="form-group">
             <label for="titulos">Títulos</label>
             {{ form.titulos }}
         </div>
+
         <div class="form-group">
             <label for="clube">Campeonatos</label>
             {{ form.campeonatos }}
         </div>
-        <button type="submit">Salvar</button>
-        <a href="{% url 'clube_list' %}">Cancelar</a>
-    </form>
-</body>
 
-</html>
+        <div class="form-actions">
+            <button type="submit" class="button-menu">Salvar</button>
+            <a href="{% url 'clube_list' %}" class="button-anchor">
+                <button type="button" class="button-menu">Cancelar</button>
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

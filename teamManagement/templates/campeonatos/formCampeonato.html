@@ -1,38 +1,49 @@
-<!DOCTYPE html>
-<html lang="pt">
+{% extends "base.html" %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>{% if form.instance.pk %}Editar Campeonato{% else %}Adicionar Novo Campeonato{% endif %}</title>
-</head>
+{% block title %}
+    {% if form.instance.pk %}Editar Campeonato{% else %}Adicionar Novo Campeonato{% endif %}
+{% endblock %}
 
-<body>
-    <h2>{% if form.instance.pk %}Editar Campeonato{% else %}Adicionar Novo Campeonato{% endif %}</h2>
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="nome">Nome</label>
-            {{ form.nome }}
-        </div>
-        <div class="form-group">
-            <label for="modelo">Modelo</label>
-            {{ form.modelo }}
-        </div>
-        <div class="form-group">
-            <label for="premiacao">Premiação</label>
-            {{ form.premiacao }}
-        </div>
-        <div class="form-group">
-            <label for="dt_inicio">Data de Início</label>
-            <input type="date" name="dt_inicio" id="dt_inicio" value="{{ form.dt_inicio.value|date:'Y-m-d' }}">
-        </div>
-        <div class="form-group">
-            <label for="dt_termino">Data de Término</label>
-            <input type="date" name="dt_termino" id="dt_termino" value="{{ form.dt_termino.value|date:'Y-m-d' }}">
-        </div>
-        <button type="submit">Salvar</button>
-        <a href="{% url 'campeonato_list' %}">Cancelar</a>
-    </form>
-</body>
+{% block content %}
+    <div class="form-container">
+        <h2 class="form-title">
+            {% if form.instance.pk %}Editar Campeonato{% else %}Adicionar Novo Campeonato{% endif %}
+        </h2>
+        <form method="post" class="championship-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="nome" class="form-label">Nome</label>
+                {{ form.nome }}
+            </div>
 
-</html>
+            <div class="form-group">
+                <label for="modelo" class="form-label">Modelo</label>
+                {{ form.modelo }}
+            </div>
+
+            <div class="form-group">
+                <label for="premiacao" class="form-label">Premiação</label>
+                {{ form.premiacao }}
+            </div>
+
+            <div class="form-group">
+                <label for="dt_inicio" class="form-label">Data de Início</label>
+                <input type="date" name="dt_inicio" id="dt_inicio" class="form-input" value="{{ form.dt_inicio.value|date:'Y-m-d' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="dt_termino" class="form-label">Data de Término</label>
+                <input type="date" name="dt_termino" id="dt_termino" class="form-input" value="{{ form.dt_termino.value|date:'Y-m-d' }}">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="button-menu">Salvar</button>
+                <a href="{% url 'campeonato_list' %}" class="button-anchor">
+                    <button type="button" class="button-menu">Cancelar</button>
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

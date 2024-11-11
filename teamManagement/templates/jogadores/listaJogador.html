@@ -1,44 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Jogadores</title>
-</head>
+{% block title %}Lista de Jogadores{% endblock %}
 
-<body>
-    <h2>Lista de Jogadores</h2>
-    <a href="{% url 'jogador_create' %}">Adicionar Novo Jogador</a>
-    <table>
-        <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Posição</th>
-            <th>Número</th>
-            <th>Contrato</th>
-            <th>Titular</th>
-            <th>Data de Nascimento</th>
-            <th>Salário</th>
-            <th>Ações</th>
-        </tr>
+{% block content %}
+<div class="list-container">
+    <h2 class="title">Lista de Jogadores</h2>
+    <ul class="lista">
         {% for jogador in jogadores %}
-        <tr>
-            <td>{{ jogador.nome }}</td>
-            <td>{{ jogador.cpf }}</td>
-            <td>{{ jogador.posicao }}</td>
-            <td>{{ jogador.numero }}</td>
-            <td>{{ jogador.tempo_contrato }}</td>
-            <td>{{ jogador.titular }}</td>
-            <td>{{ jogador.dt_nascimento }}</td>
-            <td>{{ jogador.salario }}</td>
-            <td>
-                <a href="{% url 'jogador_update' jogador.cpf %}">Editar</a> |
-                <a href="{% url 'jogador_delete' jogador.cpf %}">Deletar</a>
-            </td>
-        </tr>
+        <li class="championship-item">
+            <span class="item championship-name" onclick="toggleDetails('{{ jogador.cpf }}')">
+                {{ jogador.nome }}
+            </span>
+            <div class="championship-details" id="details-{{ jogador.cpf }}" style="display: none;">
+                <span class="item"><strong>Nome:</strong> {{ jogador.nome }}</span><br>
+                <span class="item"><strong>CPF:</strong> {{ jogador.cpf }}</span><br>
+                <span class="item"><strong>Posição:</strong> {{ jogador.posicao }}</span><br>
+                <span class="item"><strong>Número:</strong> {{ jogador.numero }}</span><br>
+                <span class="item"><strong>Contrato:</strong> {{ jogador.tempo_contrato }}</span><br>
+                <span class="item"><strong>Titular:</strong> {{ jogador.titular }}</span><br>
+                <span class="item"><strong>Data de Nascimento:</strong> {{ jogador.dt_nascimento }}</span><br>
+                <span class="item"><strong>Salário:</strong> {{ jogador.salario }}</span><br>
+                <span class="item"><strong>Clube:</strong> {{ jogador.clube.nome }}</span><br> <!-- Adicionando o time do jogador -->
+                <a href="{% url 'jogador_update' jogador.cpf %}" class="option">Editar</a> |
+                <a href="{% url 'jogador_delete' jogador.cpf %}" class="option">Deletar</a><br>
+                <button class="close-button" onclick="toggleDetails('{{ jogador.cpf }}')">Fechar</button>
+            </div>
+        </li>
+        {% empty %}
+        <li>Nenhum jogador encontrado.</li>
         {% endfor %}
-    </table>
-</body>
+    </ul>
+    <div class="bottom-container">
+        <a href="{% url 'jogador_create' %}" class="list-button">Adicionar Novo Jogador</a>
+        <a href="{% url 'jogador_menu' %}" class="list-button">Voltar</a>
+    </div>
+</div>
+{% endblock %}
 
-</html>
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function toggleDetails(cpf) {
+            const details = document.getElementById("details-" + cpf);
+
+            if (details) {
+                const isVisible = details.style.display === "block";
+                details.style.display = isVisible ? "none" : "block";
+            } else {
+                console.error("Elemento não encontrado para o CPF:", cpf);
+            }
+        }
+
+        window.toggleDetails = toggleDetails;
+    });
+</script>
+{% endblock %}

@@ -1,44 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Treinadores</title>
-</head>
+{% block title %}Lista de Treinadores{% endblock %}
 
-<body>
-    <h2>Lista de Treinadores</h2>
-    <a href="{% url 'treinador_create' %}">Adicionar Novo Treinador</a>
-    <table>
-        <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Categoria</th>
-            <th>Tempo de Contrato</th>
-            <th>Cargo</th>
-            <th>Data de Nascimento</th>
-            <th>Salário</th>
-            <th>Clube</th>
-            <th>Ações</th>
-        </tr>
+{% block content %}
+<div class="list-container">
+    <h2 class="title">Lista de Treinadores</h2>
+    <ul class="lista">
         {% for treinador in treinadores %}
-        <tr>
-            <td>{{ treinador.nome }}</td>
-            <td>{{ treinador.cpf }}</td>
-            <td>{{ treinador.categoria }}</td>
-            <td>{{ treinador.tempo_contrato }}</td>
-            <td>{{ treinador.cargo }}</td>
-            <td>{{ treinador.dt_nascimento }}</td>
-            <td>{{ treinador.salario }}</td>
-            <td>{{ treinador.clube.nome }}</td>
-            <td>
-                <a href="{% url 'treinador_update' treinador.id %}">Editar</a> |
-                <a href="{% url 'treinador_delete' treinador.id %}">Deletar</a>
-            </td>
-        </tr>
+        <li class="championship-item">
+            <span class="item championship-name" onclick="toggleDetails('{{ treinador.cpf }}')">
+                {{ treinador.nome }}
+            </span>
+            <div class="championship-details" id="details-{{ treinador.cpf }}" style="display: none;">
+                <span class="item"><strong>Nome:</strong> {{ treinador.nome }}</span><br>
+                <span class="item"><strong>CPF:</strong> {{ treinador.cpf }}</span><br>
+                <span class="item"><strong>Categoria:</strong> {{ treinador.categoria }}</span><br>
+                <span class="item"><strong>Tempo de Contrato:</strong> {{ treinador.tempo_contrato }}</span><br>
+                <span class="item"><strong>Cargo:</strong> {{ treinador.cargo }}</span><br>
+                <span class="item"><strong>Data de Nascimento:</strong> {{ treinador.dt_nascimento }}</span><br>
+                <span class="item"><strong>Salário:</strong> {{ treinador.salario }}</span><br>
+                <span class="item"><strong>Clube:</strong> {{ treinador.clube.nome }}</span><br>
+                <a href="{% url 'treinador_update' treinador.cpf %}" class="option">Editar</a> |
+                <a href="{% url 'treinador_delete' treinador.cpf %}" class="option">Deletar</a><br>
+                <button class="close-button" onclick="toggleDetails('{{ treinador.cpf }}')">Fechar</button>
+            </div>
+        </li>
+        {% empty %}
+        <li>Nenhum treinador encontrado.</li>
         {% endfor %}
-    </table>
-</body>
+    </ul>
+    <div class="bottom-container">
+        <a href="{% url 'treinador_create' %}" class="list-button">Adicionar Novo Treinador</a>
+        <a href="{% url 'treinador_menu' %}" class="list-button">Voltar</a>
+    </div>
+</div>
+{% endblock %}
 
-</html>
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function toggleDetails(cpf) {
+            const details = document.getElementById("details-" + cpf);
+
+            if (details) {
+                const isVisible = details.style.display === "block";
+                details.style.display = isVisible ? "none" : "block";
+            } else {
+                console.error("Elemento não encontrado para o CPF:", cpf);
+            }
+        }
+
+        window.toggleDetails = toggleDetails;
+    });
+</script>
+{% endblock %}
